@@ -1,0 +1,31 @@
+{
+  "name": "message-card",
+  "authors": [
+    "acordeonl <admin@acorde.onl>"
+  ],
+  "description": "",
+  "main": "message-card.html",
+  "keywords": [
+    "web-components",
+    "polymer"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "lazy-load-behavior": "acordeonl/lazy-load-behavior#^1.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.2",
+    "drop-menu": "acordeonl/drop-menu#^1.14.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
+  }
+}

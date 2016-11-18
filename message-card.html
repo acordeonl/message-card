@@ -1,0 +1,225 @@
+<imports >
+    <link rel="import" href="../polymer/polymer.html">
+    <link rel="import" href="../lazy-load-behavior/lazy-load-behavior.html" async>
+    <link rel="import" href="../paper-icon-button/paper-icon-button.html" async>
+    <link rel="import" href="../drop-menu/drop-menu.html" async>
+</imports>
+<!--
+
+Shows drop down menu (works on chrome)
+
+### Usage
+The list displayed in the drop down menu can be set as an attribute.
+
+    <drop-menu list-items='["first" ,"second"]'></drop-menu>
+
+For an overlayed drop menu:
+
+    <drop-menu overlay-menu list-items='["first" ,"second"]'></drop-menu>
+
+### Styling
+ Custom property | Description | Default
+----------------|-------------|----------
+`--item-background-color` | List item backround color | `#f1ecef`
+`--item-color` | List item color used for fonts | `#302f31`
+`--close-color` | Icon button hover color | `4775D1`
+`--content-background` | Drop menu's background color | `white`
+`--close-color` | Icon button hover color | `4775D1`
+`--icon-button` | Mixin applied the icon button | `{}`
+
+@demo demo/drop-menu-demo.html
+-->
+<dom-module id="message-card">
+    <template>
+        <style >
+            <style menu>
+                paper-icon-button {
+                    background-color: var(--paper-icon-button-background);
+                    color: var(--content-background);
+                    border-radius: 100%;
+                }
+                drop-menu {
+                    position: relative;
+                    z-index: 100;
+                    --icon-button: {
+                        background-color: var(--paper-icon-button-background);
+                        color: var(--content-background);
+                        border-radius: 100%;
+                        height: 40px;
+                        width: 40px;
+                    };
+                }
+                paper-icon-button:hover {
+                    color: var(--close-color);
+                }
+                paper-item:hover {
+                    cursor: pointer;
+                }
+                paper-item {
+                    --paper-item: {
+                        white-space: nowrap;
+                    };
+                }
+            </style>
+            <style top>
+                iron-icon {
+                    margin-bottom: 3.5px;
+                    margin-right: 2px;
+                }
+                [top] {
+                    margin-top: 12px;
+                    font-size: 17px;
+                    @apply(--layout-justified);
+                    @apply(--layout-horizontal);
+                }
+                [title] {
+                    margin-left: 10px;
+                    font-size: 18px;
+                    color: var(--close-color);
+                    margin-top: 12px;
+                    font-weight: 400;
+                }
+                [commentContent] {
+                    @apply(--justify-text);
+                    margin: 12px 10px 14px;
+                }
+            </style>
+            <style bottom>
+                [details]{
+                    margin-top: 0px;
+                }
+                [bottom] {
+                    width: 98%;
+                    margin-bottom: 7px;
+                    color: var(--title-color);
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center);
+                    @apply(--layout-justified);
+                    font-size: 15px;
+                }
+                [likes] paper-icon-button {
+                    background-color: var(--paper-icon-list-background);
+                    margin: 0;
+                    height: 35px;
+                    width: 35px;
+                }
+                [likes] {
+                    margin-left: 10px;
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center);
+                }
+                [liked] {
+                    color: var(--close-color);
+                }
+                [likeCount] {
+                    margin-left: 10px;
+                    margin-right: 10px;
+                }
+                [date] {
+                    margin-top: 2px;
+                    /*margin-left: 0px;*/
+                    margin-bottom: 3px;
+                    margin-right: 5px;
+                }
+            </style>
+            <style>
+                [listItem] {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    padding-left: 15px;
+                    padding-right: 13px;
+                    padding-bottom: 10px;
+                    border-radius: 4px;
+                    opacity: 0.8;
+                    background-color: var(--title-background);
+                    position: relative;
+                    @apply(--layout-vertical);
+                    color: var(--title-color);
+                }
+                [middle] {
+                    margin: 15px 5px 0px;
+                }
+                [more]{
+                    color:var(--close-color) ;
+                    font-weight: 400 ;
+                }
+                [more]:hover {
+                    cursor: pointer ;
+                    font-weight: 400 ;
+                }
+            </style>
+        </style>
+
+        <div listItem>
+            <div clickArea id="comment0">
+                <div top id="top">
+                    <div title>
+                        <iron-icon icon="{{titleIcon}}"></iron-icon>
+                        {{cardTitle}}
+                        &nbsp
+                    </div>
+                    <template is="dom-if" if="[[menu]]">
+                        <drop-menu overlay-menu list-items='{{menu}}'></drop-menu>
+                    </template>
+                </div>
+                <div middle>
+                    <div commentContent id="short">
+                        {{contentShort}}
+                        <a more on-click="_expand">[+]</a>
+                    </div>
+                    <div commentContent id="long">
+                        {{content}}
+                    </div>
+                </div>
+                <div bottom>
+                    <content details select="[details]">
+                        <div ></div>
+                    </content>
+                    <div date>
+                        {{date}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "message-card",
+            observers: [],
+            behaviors: [],
+            listeners: {},
+            properties: {
+                id:{
+                    type:String,
+                    value:""
+                },
+                menu: {
+                    type: Array
+                }
+            },
+            _expand: function(){
+                this.$.short.style.display="none" ;
+                this.$.long.style.display="inline-block" ;
+                this.$.long.style.marginTop = 0 ;
+            },
+            _menuAction: function (e) {
+                if ( e.detail.action ==="Expandir") {
+                    this.$.short.style.display="none" ;
+                    this.$.long.style.display ="inline-block" ;
+                }
+                this.fire('message-card-menu-action',{action:e.detail.action,id:this.id});
+            },
+            ready: function () {
+                Polymer.RenderStatus.afterNextRender(this, function () {
+                    this.$.long.style.display="none" ;
+                    var views = this.getContentChildren('content') ;
+                    for (var i  = 0 ;i <views.length ; i ++ ) {
+                        while (!views[i]) {}
+                        views[i].style.visibility = "visible" ;
+                    }
+                    this.listen(this, 'menu-action', '_menuAction');
+                });
+            }
+        });
+    </script>
+</dom-module>
