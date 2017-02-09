@@ -85,8 +85,8 @@ For an overlayed drop menu:
                 }
             </style>
             <style bottom>
-                [details]{
-                    margin-top: 0px;
+                [details] {
+                    margin-top: 0;
                 }
                 [bottom] {
                     width: 98%;
@@ -137,19 +137,18 @@ For an overlayed drop menu:
                     color: var(--title-color0,#1D1D1D);
                 }
                 [middle] {
-                    margin: 15px 5px 0px;
+                    margin: 15px 5px 0;
                 }
-                [more]{
-                    color:var(--close-color,#4775D1) ;
-                    font-weight: 400 ;
+                [more] {
+                    color: var(--close-color,#4775D1);
+                    font-weight: 400;
                 }
                 [more]:hover {
-                    cursor: pointer ;
-                    font-weight: 400 ;
+                    cursor: pointer;
+                    font-weight: 400;
                 }
             </style>
         </style>
-
         <div listItem>
             <div clickArea id="comment0">
                 <div top id="top">
@@ -189,33 +188,36 @@ For an overlayed drop menu:
             behaviors: [],
             listeners: {},
             properties: {
-                id:{
-                    type:String,
-                    value:""
+                id: {
+                    type: String,
+                    value: ""
                 },
                 menu: {
                     type: Array
                 }
             },
-            _expand: function(){
-                this.$.short.style.display="none" ;
-                this.$.long.style.display="inline-block" ;
-                this.$.long.style.marginTop = 0 ;
+            _expand: function () {
+                this.$.short.style.display = "none";
+                this.$.long.style.display = "inline-block";
+                this.$.long.style.marginTop = 0;
             },
             _menuAction: function (e) {
-                if ( e.detail.action ==="Expandir") {
-                    this.$.short.style.display="none" ;
-                    this.$.long.style.display ="inline-block" ;
+                if (e.detail.action === "Expandir") {
+                    this.$.short.style.display = "none";
+                    this.$.long.style.display = "inline-block";
                 }
-                this.fire('message-card-menu-action',{action:e.detail.action,id:this.id});
+                this.fire('message-card-menu-action', {
+                    action: e.detail.action,
+                    id: this.id
+                });
             },
             ready: function () {
                 Polymer.RenderStatus.afterNextRender(this, function () {
-                    this.$.long.style.display="none" ;
-                    var views = this.getContentChildren('content') ;
-                    for (var i  = 0 ;i <views.length ; i ++ ) {
+                    this.$.long.style.display = "none";
+                    var views = this.getContentChildren('content');
+                    for (var i = 0; i < views.length; i++) {
                         while (!views[i]) {}
-                        views[i].style.visibility = "visible" ;
+                        views[i].style.visibility = "visible";
                     }
                     this.listen(this, 'menu-action', '_menuAction');
                 });
