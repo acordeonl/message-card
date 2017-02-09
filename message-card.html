@@ -22,9 +22,9 @@ For an overlayed drop menu:
 ----------------|-------------|----------
 `--item-background-color` | List item backround color | `#f1ecef`
 `--item-color` | List item color used for fonts | `#302f31`
-`--close-color` | Icon button hover color | `4775D1`
+`--theme-color1` | Icon button hover color | `4775D1`
 `--content-background` | Drop menu's background color | `white`
-`--close-color` | Icon button hover color | `4775D1`
+`--theme-color1` | Icon button hover color | `4775D1`
 `--icon-button` | Mixin applied the icon button | `{}`
 
 @demo demo/drop-menu-demo.html
@@ -50,7 +50,7 @@ For an overlayed drop menu:
                     };
                 }
                 paper-icon-button:hover {
-                    color: var(--close-color,#4775D1);
+                    color: var(--theme-color1,#4775D1);
                 }
                 paper-item:hover {
                     cursor: pointer;
@@ -75,7 +75,7 @@ For an overlayed drop menu:
                 [title] {
                     margin-left: 10px;
                     font-size: 18px;
-                    color: var(--close-color,#4775D1);
+                    color: var(--theme-color1,#4775D1);
                     margin-top: 12px;
                     font-weight: 400;
                 }
@@ -109,7 +109,7 @@ For an overlayed drop menu:
                     @apply(--layout-center);
                 }
                 [liked] {
-                    color: var(--close-color,#4775D1);
+                    color: var(--theme-color1,#4775D1);
                 }
                 [likeCount] {
                     margin-left: 10px;
@@ -140,7 +140,7 @@ For an overlayed drop menu:
                     margin: 15px 5px 0;
                 }
                 [more] {
-                    color: var(--close-color,#4775D1);
+                    color: var(--theme-color1,#4775D1);
                     font-weight: 400;
                 }
                 [more]:hover {
